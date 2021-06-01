@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./styles.css";
+import "../styles.css";
 import AudioControls from "./AudioControls";
-import Backdrop from "./Backdrop";
+import TracksContainer from "./TracksContainer";
+import Backdrop from "../Backdrop";
 
 const AudioPlayer = ({ tracks }) => {
   // State
@@ -27,43 +28,27 @@ const AudioPlayer = ({ tracks }) => {
   -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
 `;
 
-  const toPrevTrack = () => {
-    if (trackIndex - 1 < 0) {
-      setTrackIndex(tracks.length - 1);
-    } else {
-      setTrackIndex(trackIndex - 1);
-    }
-  };
-
-  const toNextTrack = () => {
-    if (trackIndex < tracks.length - 1) {
-      setTrackIndex(trackIndex + 1);
-    } else {
-      setTrackIndex(0);
-    }
-  };
-
   const startTimer = () => {
     // Clear any timers already running
     clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
       if (audioRef.current.ended) {
-        toNextTrack();
+        setIsPlaying(false);
       } else {
         setTrackProgress(audioRef.current.currentTime);
       }
     }, [1000]);
   };
 
-  const onScrub = (value) => {
+  const onPressmove = (value) => {
     // Clear any timers already running
     clearInterval(intervalRef.current);
     audioRef.current.currentTime = value;
     setTrackProgress(audioRef.current.currentTime);
   };
 
-  const onScrubEnd = () => {
+  const onPressup = () => {
     // If not already playing, start
     if (!isPlaying) {
       setIsPlaying(true);
@@ -115,24 +100,11 @@ const AudioPlayer = ({ tracks }) => {
         />
         <h2 className='title'>{title}</h2>
         <h3 className='artist'>{artist}</h3>
-        <AudioControls
-          isPlaying={isPlaying}
-          onPrevClick={toPrevTrack}
-          onNextClick={toNextTrack}
-          onPlayPauseClick={setIsPlaying}
-        />
-        <input
-          type='range'
-          value={trackProgress}
-          step='1'
-          min='0'
-          max={duration ? duration : `${duration}`}
-          className='progress'
-          onChange={(e) => onScrub(e.target.value)}
-          onMouseUp={onScrubEnd}
-          onKeyUp={onScrubEnd}
-          style={{ background: trackStyling }}
-        />
+        <AudioControls isPlaying={isPlaying} onPlayPauseClick={setIsPlaying} />
+        <TracksContainer
+          duration={duration}
+          trackProgress={trackProgress}
+          trackStyling={trackStyling}></TracksContainer>
       </div>
       <Backdrop
         trackIndex={trackIndex}
