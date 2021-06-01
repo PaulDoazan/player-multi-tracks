@@ -104,7 +104,11 @@ const AudioPlayer = ({ tracks }) => {
         <TracksContainer
           duration={duration}
           trackProgress={trackProgress}
-          trackStyling={trackStyling}></TracksContainer>
+          trackStyling={trackStyling}
+          tracks={tracks}
+          onchange={(value) => {
+            onPressmove(value);
+          }}></TracksContainer>
       </div>
       <Backdrop
         trackIndex={trackIndex}
