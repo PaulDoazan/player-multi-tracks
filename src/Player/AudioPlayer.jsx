@@ -11,24 +11,14 @@ const AudioPlayer = ({ tracks }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   // Destructure for conciseness
-  const { title, artist, color, image, audioSrc } = tracks[trackIndex];
+  const track0 = tracks[0];
+  const track1 = tracks[1];
 
-  // Refs
-  const audioRef = useRef(new Audio(audioSrc));
+  const audioRef0 = useRef(new Audio(track0.audioSrc));
+  const audioRef1 = useRef(new Audio(track1.audioSrc));
   const intervalRef = useRef();
-  const isReady = useRef(false);
 
-  // Destructure for conciseness
-  const { duration } = audioRef.current;
-
-  const currentPercentage = duration
-    ? `${(trackProgress / duration) * 100}%`
-    : "0%";
-  const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
-`;
-
-  const startTimer = () => {
+  const startTimer = (audioRef) => {
     // Clear any timers already running
     clearInterval(intervalRef.current);
 
@@ -41,7 +31,7 @@ const AudioPlayer = ({ tracks }) => {
     }, [1000]);
   };
 
-  const onPressmove = (value) => {
+  const onPressmove = (value, audioRef) => {
     // Clear any timers already running
     clearInterval(intervalRef.current);
     audioRef.current.currentTime = value;
@@ -53,39 +43,25 @@ const AudioPlayer = ({ tracks }) => {
     if (!isPlaying) {
       setIsPlaying(true);
     }
-    startTimer();
+    startTimer(audioRef0);
   };
 
   useEffect(() => {
     if (isPlaying) {
-      audioRef.current.play();
-      startTimer();
+      audioRef0.current.play();
+      audioRef1.current.play();
+      startTimer(audioRef0);
     } else {
-      audioRef.current.pause();
+      audioRef0.current.pause();
+      audioRef1.current.pause();
     }
   }, [isPlaying]);
-
-  // Handles cleanup and setup when changing tracks
-  useEffect(() => {
-    audioRef.current.pause();
-
-    audioRef.current = new Audio(audioSrc);
-    setTrackProgress(audioRef.current.currentTime);
-
-    if (isReady.current) {
-      audioRef.current.play();
-      setIsPlaying(true);
-      startTimer();
-    } else {
-      // Set the isReady ref as true for the next pass
-      isReady.current = true;
-    }
-  }, [trackIndex]);
 
   useEffect(() => {
     // Pause and clean up on unmount
     return () => {
-      audioRef.current.pause();
+      audioRef0.current.pause();
+      audioRef1.current.pause();
       clearInterval(intervalRef.current);
     };
   }, []);
@@ -95,24 +71,22 @@ const AudioPlayer = ({ tracks }) => {
       <div className='track-info'>
         <img
           className='artwork'
-          src={image}
-          alt={`track artwork for ${title} by ${artist}`}
+          src={track0.image}
+          alt={`track artwork for ${track0.title} by ${track0.artist}`}
         />
-        <h2 className='title'>{title}</h2>
-        <h3 className='artist'>{artist}</h3>
+        <h2 className='title'>{track0.title}</h2>
+        <h3 className='artist'>{track0.artist}</h3>
         <AudioControls isPlaying={isPlaying} onPlayPauseClick={setIsPlaying} />
         <TracksContainer
-          duration={duration}
           trackProgress={trackProgress}
-          trackStyling={trackStyling}
           tracks={tracks}
-          onchange={(value) => {
-            onPressmove(value);
+          onchange={(value, audioRef) => {
+            onPressmove(value, audioRef);
           }}></TracksContainer>
       </div>
       <Backdrop
         trackIndex={trackIndex}
-        activeColor={color}
+        activeColor={track0.color}
         isPlaying={isPlaying}
       />
     </div>
