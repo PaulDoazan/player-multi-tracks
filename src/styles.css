@@ -64,6 +64,18 @@ input[type="range"] {
   margin-top: 0;
 }
 
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-add-track {
+  border: solid 4px white;
+  border-radius: 50%;
+  color: white;
+  font-size: larger;
+}
+
 .audio-controls {
   display: flex;
   justify-content: center;

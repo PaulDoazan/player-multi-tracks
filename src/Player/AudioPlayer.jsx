@@ -7,6 +7,7 @@ import Backdrop from "../Backdrop";
 const AudioPlayer = ({ tracks }) => {
   // State
   const [trackIndex, setTrackIndex] = useState(0);
+  const [tracksArray, setTracksArray] = useState([]);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -28,7 +29,7 @@ const AudioPlayer = ({ tracks }) => {
       } else {
         setTrackProgress(audioRef.current.currentTime);
       }
-    }, [1000]);
+    }, [2000]);
   };
 
   const onPressmove = (value, audioRef) => {
@@ -45,6 +46,10 @@ const AudioPlayer = ({ tracks }) => {
     }
     startTimer(audioRef0);
   };
+
+  const addTrack = () => {
+    setTracksArray(oldArray => [...oldArray, "hello"]);
+  }
 
   useEffect(() => {
     if (isPlaying) {
@@ -72,7 +77,7 @@ const AudioPlayer = ({ tracks }) => {
         <img
           className='artwork'
           src={track0.image}
-          alt={`track artwork for ${track0.title} by ${track0.artist}`}
+          alt={`track artwork for ${ track0.title } by ${ track0.artist }`}
         />
         <h2 className='title'>{track0.title}</h2>
         <h3 className='artist'>{track0.artist}</h3>
@@ -80,6 +85,7 @@ const AudioPlayer = ({ tracks }) => {
         <TracksContainer
           trackProgress={trackProgress}
           tracks={tracks}
+          addTrack={() => { addTrack() }}
           onchange={(value, audioRef) => {
             onPressmove(value, audioRef);
           }}></TracksContainer>
