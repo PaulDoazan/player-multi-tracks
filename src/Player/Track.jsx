@@ -13,18 +13,18 @@ export default function Track(props) {
   const { duration } = audioRef.current;
 
   const currentPercentage = duration
-    ? `${(props.trackProgress / duration) * 100}%`
+    ? `${ (props.trackProgress / duration) * 100 }%`
     : "0%";
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
 `;
 
   const handleDown = (event) => {
-    console.log("down");
+    props.onMouseDown();
   };
 
   const handleChange = (event) => {
-    props.onchange(event.target.value, audioRef);
+    props.onChange(event.target.value, audioRef);
   };
 
   return (
@@ -34,7 +34,7 @@ export default function Track(props) {
         value={props.trackProgress}
         step='1'
         min='0'
-        max={duration ? duration : `${duration}`}
+        max={duration ? duration : `${ duration }`}
         className='progress'
         onChange={handleChange}
         onMouseDown={handleDown}

@@ -14,19 +14,28 @@ export default function TracksContainer(props) {
     props.onchange(value, audioRef);
   };
 
+  const handleDown = () => {
+    props.onTrackDown();
+  };
+
   const addTrack = () => {
-    props.addTrack();
     setTracksArray(oldArray => [...oldArray, props.tracks[getRandomInt(0, props.tracks.length)]]);
+    props.addTrack(tracksArray);
+    props.onTrackDown();
   }
 
   return (
     <div>
-      {tracksArray.map((item) => {
-        return <Track
-          trackProgress={props.trackProgress}
-          onchange={handleChange}
-          track={item}></Track>
-      })}
+      <ul>
+        {tracksArray.map((item, index) => {
+          return <li key={item.title + index}><Track
+            trackProgress={props.trackProgress}
+            onChange={handleChange}
+            onMouseDown={handleDown}
+            track={item}></Track>
+          </li>
+        })}
+      </ul>
 
       <div className="btn-container">
         <button

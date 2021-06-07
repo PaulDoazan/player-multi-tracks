@@ -8,65 +8,87 @@ const AudioPlayer = ({ tracks }) => {
   // State
   const [trackIndex, setTrackIndex] = useState(0);
   const [tracksArray, setTracksArray] = useState([]);
+  const [audioArray, setAudioTracks] = useState([]);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
   // Destructure for conciseness
   const track0 = tracks[0];
-  const track1 = tracks[1];
+  //const track1 = tracks[1];
 
-  const audioRef0 = useRef(new Audio(track0.audioSrc));
-  const audioRef1 = useRef(new Audio(track1.audioSrc));
+  /*const audioRef0 = useRef(new Audio(track0.audioSrc));
+  const audioRef1 = useRef(new Audio(track1.audioSrc));*/
   const intervalRef = useRef();
 
-  const startTimer = (audioRef) => {
+  const startTimer = (audio) => {
     // Clear any timers already running
     clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
-      if (audioRef.current.ended) {
+      if (audio.ended) {
         setIsPlaying(false);
       } else {
-        setTrackProgress(audioRef.current.currentTime);
+        setTrackProgress(audio.currentTime);
       }
-    }, [2000]);
+    }, [1000]);
+  };
+
+  const onDown = () => {
+    audioArray.map((item) => {
+      item.pause();
+    });
+    setIsPlaying(false);
   };
 
   const onPressmove = (value, audioRef) => {
     // Clear any timers already running
     clearInterval(intervalRef.current);
-    audioRef.current.currentTime = value;
-    setTrackProgress(audioRef.current.currentTime);
+    //audioRef.current.currentTime = value;
+    audioArray.map((item) => {
+      item.currentTime = value;
+    });
+    setTrackProgress(value);
   };
 
   const onPressup = () => {
     // If not already playing, start
-    if (!isPlaying) {
+    /*if (!isPlaying) {
       setIsPlaying(true);
     }
-    startTimer(audioRef0);
+    startTimer(audioRef0);*/
   };
 
-  const addTrack = () => {
-    setTracksArray(oldArray => [...oldArray, "hello"]);
+  const updateTrack = (tracks) => {
+    setTracksArray(tracks);
   }
 
   useEffect(() => {
+    setAudioTracks([]);
+    tracksArray.map((item) => {
+      setAudioTracks(oldArray => [...oldArray, new Audio(item.audioSrc)]);
+    });
+  }, [tracksArray]);
+
+  useEffect(() => {
+    console.log(audioArray);
+  }, [audioArray]);
+
+  useEffect(() => {
     if (isPlaying) {
-      audioRef0.current.play();
-      audioRef1.current.play();
-      startTimer(audioRef0);
+      audioArray.map((item) => {
+        item.play();
+      });
+      if (audioArray[0]) startTimer(audioArray[0]);
     } else {
-      audioRef0.current.pause();
-      audioRef1.current.pause();
+      audioArray.map((item) => {
+        item.pause();
+      });
     }
   }, [isPlaying]);
 
   useEffect(() => {
     // Pause and clean up on unmount
     return () => {
-      audioRef0.current.pause();
-      audioRef1.current.pause();
       clearInterval(intervalRef.current);
     };
   }, []);
@@ -85,7 +107,8 @@ const AudioPlayer = ({ tracks }) => {
         <TracksContainer
           trackProgress={trackProgress}
           tracks={tracks}
-          addTrack={() => { addTrack() }}
+          addTrack={(tracks) => { updateTrack(tracks) }}
+          onTrackDown={onDown}
           onchange={(value, audioRef) => {
             onPressmove(value, audioRef);
           }}></TracksContainer>
