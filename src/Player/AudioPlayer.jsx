@@ -14,10 +14,7 @@ const AudioPlayer = ({ tracks }) => {
 
   // Destructure for conciseness
   const track0 = tracks[0];
-  //const track1 = tracks[1];
 
-  /*const audioRef0 = useRef(new Audio(track0.audioSrc));
-  const audioRef1 = useRef(new Audio(track1.audioSrc));*/
   const intervalRef = useRef();
 
   const startTimer = (audio) => {
@@ -60,18 +57,16 @@ const AudioPlayer = ({ tracks }) => {
 
   const updateTrack = (tracks) => {
     setTracksArray(tracks);
-  }
+  };
 
   useEffect(() => {
     setAudioTracks([]);
     tracksArray.map((item) => {
-      setAudioTracks(oldArray => [...oldArray, new Audio(item.audioSrc)]);
+      setAudioTracks((oldArray) => [...oldArray, new Audio(item.audioSrc)]);
     });
   }, [tracksArray]);
 
-  useEffect(() => {
-    console.log(audioArray);
-  }, [audioArray]);
+  useEffect(() => {}, [audioArray]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -99,7 +94,7 @@ const AudioPlayer = ({ tracks }) => {
         <img
           className='artwork'
           src={track0.image}
-          alt={`track artwork for ${ track0.title } by ${ track0.artist }`}
+          alt={`track artwork for ${track0.title} by ${track0.artist}`}
         />
         <h2 className='title'>{track0.title}</h2>
         <h3 className='artist'>{track0.artist}</h3>
@@ -107,7 +102,9 @@ const AudioPlayer = ({ tracks }) => {
         <TracksContainer
           trackProgress={trackProgress}
           tracks={tracks}
-          addTrack={(tracks) => { updateTrack(tracks) }}
+          addTrack={(tracks) => {
+            updateTrack(tracks);
+          }}
           onTrackDown={onDown}
           onchange={(value, audioRef) => {
             onPressmove(value, audioRef);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Track from "./Track";
 
 function getRandomInt(min, max) {
@@ -19,28 +19,39 @@ export default function TracksContainer(props) {
   };
 
   const addTrack = () => {
-    setTracksArray(oldArray => [...oldArray, props.tracks[getRandomInt(0, props.tracks.length)]]);
+    setTracksArray((oldArray) => [
+      ...oldArray,
+      props.tracks[getRandomInt(0, props.tracks.length)]
+    ]);
+  };
+
+  useEffect(() => {
     props.addTrack(tracksArray);
     props.onTrackDown();
-  }
+  }, [tracksArray]);
 
   return (
     <div>
       <ul>
         {tracksArray.map((item, index) => {
-          return <li key={item.title + index}><Track
-            trackProgress={props.trackProgress}
-            onChange={handleChange}
-            onMouseDown={handleDown}
-            track={item}></Track>
-          </li>
+          return (
+            <li key={item.title + index}>
+              <Track
+                trackProgress={props.trackProgress}
+                onChange={handleChange}
+                onMouseDown={handleDown}
+                track={item}></Track>
+            </li>
+          );
         })}
       </ul>
 
-      <div className="btn-container">
+      <div className='btn-container'>
         <button
-          className="btn-add-track"
-          onClick={() => { addTrack() }}>
+          className='btn-add-track'
+          onClick={() => {
+            addTrack();
+          }}>
           +
         </button>
       </div>
