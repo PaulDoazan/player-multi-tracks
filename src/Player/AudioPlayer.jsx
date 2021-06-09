@@ -31,28 +31,23 @@ const AudioPlayer = ({ tracks }) => {
   };
 
   const onDown = () => {
+    clearInterval(intervalRef.current);
     audioArray.map((item) => {
       item.pause();
     });
     setIsPlaying(false);
   };
 
-  const onPressmove = (value, audioRef) => {
+  const onChange = (event) => {
+    let value = event.target.value;
     // Clear any timers already running
-    clearInterval(intervalRef.current);
-    //audioRef.current.currentTime = value;
-    audioArray.map((item) => {
-      item.currentTime = value;
-    });
-    setTrackProgress(value);
-  };
-
-  const onPressup = () => {
-    // If not already playing, start
-    /*if (!isPlaying) {
-      setIsPlaying(true);
+    if (event.type === "change") {
+      setTrackProgress(value);
+    } else if (event.type === "mouseup") {
+      audioArray.map((item) => {
+        item.currentTime = value;
+      });
     }
-    startTimer(audioRef0);*/
   };
 
   const updateTrack = (tracks) => {
@@ -106,8 +101,8 @@ const AudioPlayer = ({ tracks }) => {
             updateTrack(tracks);
           }}
           onTrackDown={onDown}
-          onchange={(value, audioRef) => {
-            onPressmove(value, audioRef);
+          onchange={(event) => {
+            onChange(event);
           }}></TracksContainer>
       </div>
       <Backdrop

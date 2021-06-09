@@ -10,8 +10,8 @@ function getRandomInt(min, max) {
 export default function TracksContainer(props) {
   const [tracksArray, setTracksArray] = useState([]);
 
-  const handleChange = (value, audioRef) => {
-    props.onchange(value, audioRef);
+  const handleChange = (event) => {
+    props.onchange(event);
   };
 
   const handleDown = () => {
