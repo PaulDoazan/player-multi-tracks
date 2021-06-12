@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 export default function Track(props) {
   // Destructure for conciseness
@@ -6,11 +6,14 @@ export default function Track(props) {
 
   // Refs
   const audioRef = useRef(new Audio(audioSrc));
-  const intervalRef = useRef();
-  const isReady = useRef(false);
+
+  const [duration, setDuration] = useState(audioRef.current.duration);
+
+  audioRef.current.onloadedmetadata = () => {
+    setDuration(audioRef.current.duration);
+  };
 
   // Destructure for conciseness
-  const { duration } = audioRef.current;
 
   const currentPercentage = duration
     ? `${(props.trackProgress / duration) * 100}%`
@@ -18,6 +21,8 @@ export default function Track(props) {
   const trackStyling = `
   -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
 `;
+
+  const [isDisplayed, setDisplay] = useState(`none`);
 
   const handleDown = () => {
     props.onMouseDown();
@@ -30,6 +35,10 @@ export default function Track(props) {
   const handleChange = (event) => {
     props.onChange(event);
   };
+
+  useEffect(() => {
+    setDisplay(duration ? `inline-block` : `none`);
+  }, [duration]);
 
   return (
     <div>
@@ -44,7 +53,10 @@ export default function Track(props) {
         onMouseDown={handleDown}
         onMouseUp={handleChange}
         /*onKeyUp={onPressup}*/
-        style={{ background: trackStyling }}
+        style={{
+          background: trackStyling,
+          display: isDisplayed
+        }}
       />
     </div>
   );
