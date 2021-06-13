@@ -103,7 +103,8 @@ const AudioPlayer = ({ tracks }) => {
           onTrackDown={onDown}
           onchange={(event) => {
             onChange(event);
-          }}></TracksContainer>
+          }}
+        />
       </div>
       <Backdrop
         trackIndex={trackIndex}

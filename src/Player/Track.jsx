@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-
+import Track_level_control from "./Track_level_control";
 export default function Track(props) {
   // Destructure for conciseness
   const { title, artist, color, image, audioSrc } = props.track;
@@ -22,7 +22,7 @@ export default function Track(props) {
   -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
 `;
 
-  const [isDisplayed, setDisplay] = useState(`none`);
+  const [displayDescription, setDisplayDescription] = useState(`none`);
 
   const handleDown = () => {
     props.onMouseDown();
@@ -37,11 +37,11 @@ export default function Track(props) {
   };
 
   useEffect(() => {
-    setDisplay(duration ? `inline-block` : `none`);
+    setDisplayDescription(duration ? `inline-block` : `none`);
   }, [duration]);
 
   return (
-    <div>
+    <div className='input-container'>
       <input
         type='range'
         value={props.trackProgress}
@@ -55,9 +55,10 @@ export default function Track(props) {
         /*onKeyUp={onPressup}*/
         style={{
           background: trackStyling,
-          display: isDisplayed
+          display: displayDescription
         }}
       />
+      <Track_level_control />
     </div>
   );
 }
