@@ -6,7 +6,6 @@ import Backdrop from "../Backdrop";
 
 const AudioPlayer = ({ tracks }) => {
   // State
-  const [trackIndex, setTrackIndex] = useState(0);
   const [tracksArray, setTracksArray] = useState([]);
   const [audioArray, setAudioTracks] = useState([]);
   const [trackProgress, setTrackProgress] = useState(0);
@@ -107,7 +106,7 @@ const AudioPlayer = ({ tracks }) => {
         />
       </div>
       <Backdrop
-        trackIndex={trackIndex}
+        trackIndex='0'
         activeColor={track0.color}
         isPlaying={isPlaying}
       />

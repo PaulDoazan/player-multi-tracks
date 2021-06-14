@@ -25,7 +25,7 @@ button {
   margin-bottom: 10px;
 }
 
-input[type="range"] {
+.input-progress {
   height: 5px;
   -webkit-appearance: none;
   width: 100%;
@@ -42,13 +42,30 @@ input[type="range"] {
   margin-right: 15px;
 }
 
+.volume-control {
+  display: flex;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.volume-control .speaker {
+  transition: 0.3s ease-in-out;
+}
+
+.volume-control .bars {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 ul {
   list-style: none;
   padding: 0;
 }
 
 .audio-player {
-  max-width: 350px;
+  max-width: 420px;
   padding: 24px;
   border-radius: 20px;
   box-shadow: 0 28px 28px rgba(0, 0, 0, 0.2);

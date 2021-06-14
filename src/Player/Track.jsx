@@ -48,7 +48,7 @@ export default function Track(props) {
         step='1'
         min='0'
         max={duration ? duration : `${duration}`}
-        className='progress'
+        className='input-progress'
         onChange={handleChange}
         onMouseDown={handleDown}
         onMouseUp={handleChange}
