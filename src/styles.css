@@ -52,6 +52,7 @@ button {
 
 .volume-control .speaker {
   transition: 0.3s ease-in-out;
+  cursor:pointer;
 }
 
 .volume-control .bars {

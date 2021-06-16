@@ -6,20 +6,17 @@ export default function Track(props) {
 
   // Refs
   const audioRef = useRef(new Audio(audioSrc));
-
   const [duration, setDuration] = useState(audioRef.current.duration);
 
   audioRef.current.onloadedmetadata = () => {
     setDuration(audioRef.current.duration);
   };
 
-  // Destructure for conciseness
-
   const currentPercentage = duration
-    ? `${(props.trackProgress / duration) * 100}%`
+    ? `${ (props.trackProgress / duration) * 100 }%`
     : "0%";
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
 `;
 
   const [displayDescription, setDisplayDescription] = useState(`none`);
@@ -36,6 +33,10 @@ export default function Track(props) {
     props.onChange(event);
   };
 
+  const handleVolume = (value) => {
+    props.handleVolume(audioRef.current, value / 100);
+  };
+
   useEffect(() => {
     setDisplayDescription(duration ? `inline-block` : `none`);
   }, [duration]);
@@ -47,7 +48,7 @@ export default function Track(props) {
         value={props.trackProgress}
         step='1'
         min='0'
-        max={duration ? duration : `${duration}`}
+        max={duration ? duration : `${ duration }`}
         className='input-progress'
         onChange={handleChange}
         onMouseDown={handleDown}
@@ -58,7 +59,9 @@ export default function Track(props) {
           display: displayDescription
         }}
       />
-      <Track_level_control />
+      <Track_level_control
+        changeVolume={(value) => { handleVolume(value) }}
+      />
     </div>
   );
 }

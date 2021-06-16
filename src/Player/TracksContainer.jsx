@@ -18,6 +18,10 @@ export default function TracksContainer(props) {
     props.onTrackDown();
   };
 
+  const handleVolume = (item, value) => {
+    props.handleVolume(item, value);
+  }
+
   const addTrack = () => {
     setTracksArray((oldArray) => [
       ...oldArray,
@@ -40,7 +44,9 @@ export default function TracksContainer(props) {
                 trackProgress={props.trackProgress}
                 onChange={handleChange}
                 onMouseDown={handleDown}
-                track={item}></Track>
+                track={item}
+                handleVolume={(item, value) => { handleVolume(item, value) }}
+              ></Track>
             </li>
           );
         })}
