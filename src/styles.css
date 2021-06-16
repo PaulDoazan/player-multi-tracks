@@ -46,8 +46,8 @@ button {
 
 .volume-control {
   display: flex;
+  align-items: baseline;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .volume-control .speaker {
@@ -55,14 +55,48 @@ button {
 }
 
 .volume-control .bars {
+  margin-top: -5px;
   position: relative;
   display: flex;
   align-items: flex-end;
-  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 5px;
+  width: 55px;
+  height: 24px;
 }
 
-.volume-control .bars .level-input{
-  width:70px;
+.volume-control .bars .bar {
+  width: 14%;
+  margin: 0 3%;
+  background-color: #bbb;
+}
+
+.volume-control .bars .bar:nth-child(1) {
+  height: 20%;
+}
+
+.volume-control .bars .bar:nth-child(2) {
+  height: 40%;
+}
+
+.volume-control .bars .bar:nth-child(3) {
+  height: 60%;
+}
+
+.volume-control .bars .bar:nth-child(4) {
+  height: 80%;
+}
+
+.volume-control .bars .bar:nth-child(5) {
+  height: 100%;
+}
+
+.volume-control .bars .level-input {
+  position: absolute;
+  width: 55px;
+  height: 21px;
+  cursor: pointer;
+  opacity: 0;
+  left: -3px;
 }
 
 ul {

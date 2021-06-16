@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Track_level_control() {
-  const handleChange = () => {};
+  const [volume, setVolume] = useState(0);
+
+  const className1 = "";
+
+  const handleChange = (event) => {
+    setVolume(event.target.value);
+  };
+
+  useEffect(() => {
+    return () => {};
+  }, [volume]);
+
   return (
     <div className='control-box'>
       <div className='volume-control'>
