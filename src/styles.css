@@ -22,8 +22,8 @@ button {
 
 .input-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  margin-bottom: 10px;
+  grid-template-columns: repeat(8, 1fr);
+  margin-bottom: 15px;
 }
 
 .input-progress {
@@ -37,7 +37,7 @@ button {
   transition: background 0.2s ease;
   cursor: pointer;
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 7;
 }
 
 .control-box {
@@ -100,6 +100,13 @@ button {
   left: -3px;
 }
 
+.trash {
+  color: white;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: 2px;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -144,10 +151,10 @@ ul {
 }
 
 .btn-add-track {
-  border: solid 4px white;
-  border-radius: 50%;
   color: white;
   font-size: larger;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .audio-controls {

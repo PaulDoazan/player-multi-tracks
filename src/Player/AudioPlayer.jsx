@@ -37,18 +37,6 @@ const AudioPlayer = ({ tracks }) => {
     setIsPlaying(false);
   };
 
-  const handleVolume = (item, value) => {
-    audioArray.map((el) => {
-      console.log(el, item)
-      // NOT COOL
-      if (el === item) {
-        el.volume = value;
-        console.log("match")
-        return;
-      }
-    });
-  }
-
   const onChange = (event) => {
     let value = event.target.value;
     // Clear any timers already running
@@ -60,6 +48,10 @@ const AudioPlayer = ({ tracks }) => {
       });
     }
   };
+
+  const handleDelete = (item) => {
+    console.log(item)
+  }
 
   const updateTrack = (tracks) => {
     setTracksArray(tracks);
@@ -106,14 +98,15 @@ const AudioPlayer = ({ tracks }) => {
         <TracksContainer
           trackProgress={trackProgress}
           tracks={tracks}
-          addTrack={(tracks) => {
+          audios={audioArray}
+          onDelete={(item) => { handleDelete(item) }}
+          updateTrack={(tracks) => {
             updateTrack(tracks);
           }}
           onTrackDown={onDown}
           onchange={(event) => {
             onChange(event);
           }}
-          handleVolume={(item, value) => { handleVolume(item, value) }}
         />
       </div>
       <Backdrop

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function Track_level_control(props) {
+  const { audio } = props;
   const [volume, setVolume] = useState(0);
 
   const volumeOn = `white`;
@@ -12,8 +13,10 @@ export default function Track_level_control(props) {
   };
 
   useEffect(() => {
-    props.changeVolume(volume)
-  }, [volume]);
+    if (audio) {
+      audio.volume = volume / 100;
+    }
+  }, [volume])
 
   return (
     <div className='control-box'>

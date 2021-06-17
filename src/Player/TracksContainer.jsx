@@ -7,6 +7,8 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+let trackId = 0;
+
 export default function TracksContainer(props) {
   const [tracksArray, setTracksArray] = useState([]);
 
@@ -18,19 +20,26 @@ export default function TracksContainer(props) {
     props.onTrackDown();
   };
 
-  const handleVolume = (item, value) => {
-    props.handleVolume(item, value);
-  }
+  const handleDelete = (id) => {
+    const arr = tracksArray.filter((el) => id !== el.trackId)
+    setTracksArray(arr);
+  };
 
   const addTrack = () => {
+    const newTrack = props.tracks[getRandomInt(0, props.tracks.length)];
+
+    let copiedTrack = Object.assign({}, newTrack);
+    copiedTrack.trackId = trackId;
+
+    trackId++;
     setTracksArray((oldArray) => [
-      ...oldArray,
-      props.tracks[getRandomInt(0, props.tracks.length)]
-    ]);
+      ...oldArray, copiedTrack
+    ]
+    );
   };
 
   useEffect(() => {
-    props.addTrack(tracksArray);
+    props.updateTrack(tracksArray);
     props.onTrackDown();
   }, [tracksArray]);
 
@@ -44,8 +53,9 @@ export default function TracksContainer(props) {
                 trackProgress={props.trackProgress}
                 onChange={handleChange}
                 onMouseDown={handleDown}
+                onDelete={(id) => { handleDelete(id) }}
                 track={item}
-                handleVolume={(item, value) => { handleVolume(item, value) }}
+                audio={props.audios[index]}
               ></Track>
             </li>
           );
@@ -53,13 +63,13 @@ export default function TracksContainer(props) {
       </ul>
 
       <div className='btn-container'>
-        <button
+        <div
           className='btn-add-track'
           onClick={() => {
             addTrack();
           }}>
-          +
-        </button>
+          <i className="fas fa-plus-circle fa-2x"></i>
+        </div>
       </div>
     </div>
   );
