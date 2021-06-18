@@ -21,7 +21,7 @@ export default function TracksContainer(props) {
   };
 
   const handleDelete = (id) => {
-    const arr = tracksArray.filter((el) => id !== el.trackId)
+    const arr = tracksArray.filter((el) => id !== el.trackId);
     setTracksArray(arr);
   };
 
@@ -32,10 +32,7 @@ export default function TracksContainer(props) {
     copiedTrack.trackId = trackId;
 
     trackId++;
-    setTracksArray((oldArray) => [
-      ...oldArray, copiedTrack
-    ]
-    );
+    setTracksArray((oldArray) => [...oldArray, copiedTrack]);
   };
 
   useEffect(() => {
@@ -48,28 +45,29 @@ export default function TracksContainer(props) {
       <ul>
         {tracksArray.map((item, index) => {
           return (
-            <li key={item.title + index}>
+            <li key={item.trackId}>
               <Track
                 trackProgress={props.trackProgress}
                 onChange={handleChange}
                 onMouseDown={handleDown}
-                onDelete={(id) => { handleDelete(id) }}
+                onDelete={(id) => {
+                  handleDelete(id);
+                }}
                 track={item}
-                audio={props.audios[index]}
-              ></Track>
+                audio={props.audios[index]}></Track>
             </li>
           );
         })}
       </ul>
 
       <div className='btn-container'>
-        <div
+        <button
           className='btn-add-track'
           onClick={() => {
             addTrack();
           }}>
-          <i className="fas fa-plus-circle fa-2x"></i>
-        </div>
+          <i className='fas fa-plus-circle fa-2x'></i>
+        </button>
       </div>
     </div>
   );

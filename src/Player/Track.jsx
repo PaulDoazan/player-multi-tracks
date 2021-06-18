@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Track_level_control from "./Track_level_control";
 
 export default function Track(props) {
@@ -8,18 +8,19 @@ export default function Track(props) {
 
   // Refs
   const [duration, setDuration] = useState(0);
+  const [displayDescription, setDisplayDuration] = useState(`none`);
+  const [displayWidth, setDisplayWidth] = useState(`95%`);
 
   const currentPercentage = duration
-    ? `${ (props.trackProgress / duration) * 100 }%`
+    ? `${(props.trackProgress / duration) * 100}%`
     : "0%";
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
 `;
-
-  const [displayDescription, setDisplayDescription] = useState(`none`);
 
   const handleDown = () => {
     props.onMouseDown();
+    setDisplayWidth(`95%`);
   };
 
   const handleChange = (event) => {
@@ -28,7 +29,7 @@ export default function Track(props) {
 
   const handleDelete = (id) => {
     props.onDelete(id);
-  }
+  };
 
   useEffect(() => {
     if (audio) {
@@ -39,8 +40,12 @@ export default function Track(props) {
   }, [audio]);
 
   useEffect(() => {
-    setDisplayDescription(duration ? `inline-block` : `none`);
+    setDisplayDuration(duration ? `inline-block` : `none`);
   }, [duration]);
+
+  useEffect(() => {
+    //setDisplayWidth(`100%`);
+  }, []);
 
   return (
     <div className='input-container'>
@@ -49,7 +54,7 @@ export default function Track(props) {
         value={props.trackProgress}
         step='1'
         min='0'
-        max={duration ? duration : `${ duration }`}
+        max={duration ? duration : `${duration}`}
         className='input-progress'
         onChange={handleChange}
         onMouseDown={handleDown}
@@ -57,12 +62,18 @@ export default function Track(props) {
         /*onKeyUp={onPressup}*/
         style={{
           background: trackStyling,
-          display: displayDescription
+          display: displayDescription,
+          width: displayWidth,
+          transition: `width 2s`
         }}
       />
       <Track_level_control audio={audio} />
-      <div className='trash' onClick={() => { handleDelete(trackId) }}>
-        <i className="fas fa-minus-circle fa-lg"></i>
+      <div
+        className='trash'
+        onClick={() => {
+          handleDelete(trackId);
+        }}>
+        <i className='fas fa-minus-circle fa-lg'></i>
       </div>
     </div>
   );

@@ -16,20 +16,35 @@ export default function Track_level_control(props) {
     if (audio) {
       audio.volume = volume / 100;
     }
-  }, [volume])
+  }, [volume]);
 
   return (
     <div className='control-box'>
       <div className='volume-control'>
-        <div className='speaker' style={{ color: volume > 0 ? volumeOn : volumeOff }} onClick={() => { volume ? setVolume(0) : setVolume(100) }}>
+        <div
+          className='speaker'
+          style={{ color: volume > 0 ? volumeOn : volumeOff }}
+          onClick={() => {
+            volume ? setVolume(0) : setVolume(100);
+          }}>
           <i className='fas fa-volume-off fa-lg'></i>
         </div>
         <div className='bars'>
-          <span className='bar' style={{ background: volume > 0 ? volumeOn : volumeOff }}></span>
-          <span className='bar' style={{ background: volume > 20 ? volumeOn : volumeOff }}></span>
-          <span className='bar' style={{ background: volume > 40 ? volumeOn : volumeOff }}></span>
-          <span className='bar' style={{ background: volume > 60 ? volumeOn : volumeOff }}></span>
-          <span className='bar' style={{ background: volume > 80 ? volumeOn : volumeOff }}></span>
+          <span
+            className='bar'
+            style={{ background: volume > 0 ? volumeOn : volumeOff }}></span>
+          <span
+            className='bar'
+            style={{ background: volume > 20 ? volumeOn : volumeOff }}></span>
+          <span
+            className='bar'
+            style={{ background: volume > 40 ? volumeOn : volumeOff }}></span>
+          <span
+            className='bar'
+            style={{ background: volume > 60 ? volumeOn : volumeOff }}></span>
+          <span
+            className='bar'
+            style={{ background: volume > 80 ? volumeOn : volumeOff }}></span>
           <input
             type='range'
             className='level-input'
@@ -37,6 +52,7 @@ export default function Track_level_control(props) {
             max='100'
             step='20'
             onChange={handleChange}
+            onMouseDown={handleChange}
           />
         </div>
       </div>
