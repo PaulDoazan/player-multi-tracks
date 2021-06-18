@@ -1,6 +1,6 @@
 :root {
   --white: #fff;
-  --active-color: #00aeb0;
+  --active-color: #8aba9f;
 }
 
 * {
@@ -11,7 +11,7 @@
 html {
   font-family: Arial, Helvetica, sans-serif;
   height: 100%;
-  background: var(--active-color);
+  background: #8aba9f;
   transition: background 0.4s ease;
 }
 
@@ -39,11 +39,13 @@ input:focus {
 
 .input-progress {
   height: 5px;
+  width: 95%;
   -webkit-appearance: none;
   margin-bottom: 10px;
   margin-top: 13px;
   border-radius: 8px;
-  background: #3b7677;
+  /*background: #3b7677;*/
+  background: #8aba9f;
   transition: background 0.2s ease;
   cursor: pointer;
   grid-column-start: 1;
@@ -79,6 +81,7 @@ input:focus {
   width: 14%;
   margin: 0 3%;
   background-color: #bbb;
+  transition: 0.3s ease-in-out;
 }
 
 .volume-control .bars .bar:nth-child(1) {
@@ -161,7 +164,7 @@ ul {
 }
 
 .btn-add-track {
-  color: white;
+  color: var(--white);
   font-size: larger;
   cursor: pointer;
   margin-top: 10px;
@@ -191,13 +194,13 @@ ul {
 }
 
 .color-backdrop {
-  background: linear-gradient(45deg, var(--active-color) 20%, transparent 100%)
+  background: linear-gradient(45deg, #8aba9f 20%, transparent 100%)
     no-repeat;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  height: 100%;
   z-index: -1;
 }
 
