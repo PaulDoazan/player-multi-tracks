@@ -18,7 +18,7 @@ const AudioPlayer = ({ tracks }) => {
 
   const startTimer = (audio) => {
     // Clear any timers already running
-    clearInterval(intervalRef.current);
+    //clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
       if (audio.ended) {
@@ -50,8 +50,8 @@ const AudioPlayer = ({ tracks }) => {
   };
 
   const handleDelete = (item) => {
-    console.log(item)
-  }
+    console.log(item);
+  };
 
   const updateTrack = (tracks) => {
     setTracksArray(tracks);
@@ -60,7 +60,9 @@ const AudioPlayer = ({ tracks }) => {
   useEffect(() => {
     setAudioTracks([]);
     tracksArray.map((item) => {
-      setAudioTracks((oldArray) => [...oldArray, new Audio(item.audioSrc)]);
+      let newAudio = new Audio(item.audioSrc);
+      newAudio.currentTime = trackProgress;
+      setAudioTracks((oldArray) => [...oldArray, newAudio]);
     });
   }, [tracksArray]);
 
@@ -77,12 +79,12 @@ const AudioPlayer = ({ tracks }) => {
     }
   }, [isPlaying]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     // Pause and clean up on unmount
     return () => {
       clearInterval(intervalRef.current);
     };
-  }, []);
+  }, []);*/
 
   return (
     <div className='audio-player'>
@@ -90,7 +92,7 @@ const AudioPlayer = ({ tracks }) => {
         <img
           className='artwork'
           src={track0.image}
-          alt={`track artwork for ${ track0.title } by ${ track0.artist }`}
+          alt={`track artwork for ${track0.title} by ${track0.artist}`}
         />
         <h2 className='title'>{track0.title}</h2>
         <h3 className='artist'>{track0.artist}</h3>
@@ -99,7 +101,9 @@ const AudioPlayer = ({ tracks }) => {
           trackProgress={trackProgress}
           tracks={tracks}
           audios={audioArray}
-          onDelete={(item) => { handleDelete(item) }}
+          onDelete={(item) => {
+            handleDelete(item);
+          }}
           updateTrack={(tracks) => {
             updateTrack(tracks);
           }}
