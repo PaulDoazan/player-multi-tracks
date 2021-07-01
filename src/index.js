@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import AudioPlayer from "./Player/AudioPlayer";
-import tracks from "./tracks";
+import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AudioPlayer tracks={tracks} />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
