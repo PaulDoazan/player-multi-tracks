@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 export default function Track_level_control(props) {
   const { audio } = props;
-  const [volume, setVolume] = useState(60);
+  const [volume, setVolume] = useState(20);
 
   const volumeOn = `white`;
   const volumeOff = `#777`;

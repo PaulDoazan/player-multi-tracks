@@ -1,29 +1,28 @@
 import { useState } from "react";
 
 export default function FetchButton() {
-  const [persons, setPersons] = useState([]);
+  const [datas, setDatas] = useState([]);
   const fetchData = (e) => {
     e.preventDefault();
 
     let DZ = window.dzAsyncInit();
-    DZ.api("/search?q=eminem", function (response) {
+    DZ.api("/search?q=" + e.target.value, function (response) {
       console.log("search", response);
+      setDatas(response.data);
     });
   };
 
   return (
     <div style={{ position: "absolute" }}>
-      <a href='#' onClick={fetchData}>
-        Fetch data
-      </a>
-      {persons.length ? (
+      <input type="text" id="name" name="name" style={{ color: "#000" }} onChange={(e) => { fetchData(e) }} />
+      {datas ? (
         <ul>
-          {persons.map((person) => (
-            <li>{person.name}</li>
+          {datas.map((data) => (
+            <li key={data.id}>{data.title}</li>
           ))}
         </ul>
       ) : (
-        <div>personne</div>
+        <div>No Data</div>
       )}
     </div>
   );
