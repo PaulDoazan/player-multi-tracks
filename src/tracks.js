@@ -1,7 +1,7 @@
-import imgSrc from "./assets/artwork.jpg";
-import imgSrc2 from "./assets/artwork2.jpg";
-import cali from "./assets/cali.mp3";
-import epic from "./assets/epic.mp3";
+import imgSrc from "./app/assets/artwork.jpg";
+import imgSrc2 from "./app/assets/artwork2.jpg";
+import cali from "./app/assets/cali.mp3";
+import epic from "./app/assets/epic.mp3";
 
 // All of these artists are at https://pixabay.com/music/search/mood/laid%20back/
 export default [

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Track from "./Track";
+import { useSelector } from "react-redux";
+import { selectTracks } from "../../features/selection/selectionSlice";
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -10,6 +12,8 @@ function getRandomInt(min, max) {
 let trackId = 0;
 
 export default function TracksContainer(props) {
+  const tracks = useSelector(selectTracks);
+
   const [tracksArray, setTracksArray] = useState([]);
 
   const handleChange = (event) => {
@@ -43,28 +47,30 @@ export default function TracksContainer(props) {
   return (
     <div>
       <ul>
-        {tracksArray.map((item, index) => {
-          return (
-            <li key={item.trackId}>
-              <Track
-                trackProgress={props.trackProgress}
-                onChange={handleChange}
-                onMouseDown={handleDown}
-                onDelete={(id) => {
-                  handleDelete(id);
-                }}
-                track={item}
-                audio={props.audios[index]}></Track>
-            </li>
-          );
-        })}
+        {tracks
+          ? tracks.map((item, index) => {
+              return (
+                <li key={item.id}>
+                  <Track
+                    trackProgress={props.trackProgress}
+                    onChange={handleChange}
+                    onMouseDown={handleDown}
+                    onDelete={(id) => {
+                      handleDelete(id);
+                    }}
+                    track={item}
+                    audio={props.audios[index]}></Track>
+                </li>
+              );
+            })
+          : null}
       </ul>
 
       <div className='btn-container'>
         <button
           className='btn-add-track'
           onClick={() => {
-            addTrack();
+            //addTrack();
           }}>
           <i className='fas fa-plus-circle fa-2x'></i>
         </button>

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Track_level_control from "./Track_level_control";
+import { useDispatch } from "react-redux";
+import { removeTrack } from "../../features/selection/selectionSlice";
 
 export default function Track(props) {
+  const dispatch = useDispatch();
   // Destructure for conciseness
+  console.log("track props : ", props);
   const audio = props.audio;
-  const trackId = props.track.trackId;
+  const track = props.track;
 
   // Refs
   const [duration, setDuration] = useState(0);
@@ -13,10 +17,10 @@ export default function Track(props) {
   const [displayOpacity, setDisplayOpacity] = useState(`0`);
 
   const currentPercentage = duration
-    ? `${ (props.trackProgress / duration) * 100 }%`
+    ? `${(props.trackProgress / duration) * 100}%`
     : "0%";
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
 `;
 
   const handleDown = () => {
@@ -48,7 +52,7 @@ export default function Track(props) {
   }, [duration]);
 
   useEffect(() => {
-    setDisplayWidth('95%');
+    setDisplayWidth("95%");
   }, [duration]);
 
   return (
@@ -58,7 +62,7 @@ export default function Track(props) {
         value={props.trackProgress}
         step='1'
         min='0'
-        max={duration ? duration : `${ duration }`}
+        max={duration ? duration : `${duration}`}
         className='input-progress'
         onChange={handleChange}
         onMouseDown={handleDown}
@@ -66,14 +70,15 @@ export default function Track(props) {
         style={{
           background: trackStyling,
           display: displayDescription,
-          width: displayWidth,
+          width: displayWidth
         }}
       />
       <Track_level_control audio={audio} />
       <div
         className='trash'
         onClick={() => {
-          handleDelete(trackId);
+          dispatch(removeTrack(track));
+          //handleDelete(trackId);
         }}>
         <i className='fas fa-minus-circle fa-lg'></i>
       </div>
