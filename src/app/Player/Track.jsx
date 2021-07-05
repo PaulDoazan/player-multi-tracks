@@ -5,22 +5,21 @@ import { removeTrack } from "../../features/selection/selectionSlice";
 
 export default function Track(props) {
   const dispatch = useDispatch();
-  // Destructure for conciseness
-  console.log("track props : ", props);
-  const audio = props.audio;
+
   const track = props.track;
 
   // Refs
   const [duration, setDuration] = useState(0);
+  const [audio, setAudio] = useState(null);
   const [displayDescription, setDisplayDuration] = useState(`none`);
   const [displayWidth, setDisplayWidth] = useState(`0%`);
   const [displayOpacity, setDisplayOpacity] = useState(`0`);
 
   const currentPercentage = duration
-    ? `${(props.trackProgress / duration) * 100}%`
+    ? `${ (props.trackProgress / duration) * 100 }%`
     : "0%";
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
 `;
 
   const handleDown = () => {
@@ -35,23 +34,24 @@ export default function Track(props) {
     props.onDelete(id);
   };
 
+
+
+  useEffect(() => {
+    setAudio(new Audio(track.preview));
+  }, []);
+
   useEffect(() => {
     if (audio) {
       audio.onloadedmetadata = () => {
-        setDuration(audio.duration);
+        setDuration(30);
       };
+      audio.play();
     }
   }, [audio]);
 
   useEffect(() => {
     setDisplayDuration(duration ? `inline-block` : `none`);
-  }, [duration]);
-
-  useEffect(() => {
     setDisplayOpacity(1);
-  }, [duration]);
-
-  useEffect(() => {
     setDisplayWidth("95%");
   }, [duration]);
 
@@ -62,7 +62,7 @@ export default function Track(props) {
         value={props.trackProgress}
         step='1'
         min='0'
-        max={duration ? duration : `${duration}`}
+        max={duration ? duration : `${ duration }`}
         className='input-progress'
         onChange={handleChange}
         onMouseDown={handleDown}
@@ -77,8 +77,8 @@ export default function Track(props) {
       <div
         className='trash'
         onClick={() => {
+          audio.pause();
           dispatch(removeTrack(track));
-          //handleDelete(trackId);
         }}>
         <i className='fas fa-minus-circle fa-lg'></i>
       </div>
