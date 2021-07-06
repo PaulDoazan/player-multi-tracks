@@ -1,61 +1,79 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Track_level_control from "./Track_level_control";
 import { useSelector, useDispatch } from "react-redux";
-import { removeTrack } from "../../features/selection/selectionSlice";
-import { playPause, selectPlayPause } from "../../features/selection/playPauseSlice";
 import {
-  updateValue,
+  removeTrack,
+  selectTracks
+} from "../../features/selection/selectionSlice";
+import {
+  playPause,
+  selectPlayPause
+} from "../../features/selection/playPauseSlice";
+import {
+  updateVisualProgress,
+  updateAudioProgress,
   selectProgress
 } from "../../features/selection/progressSlice";
 
 export default function Track(props) {
   const dispatch = useDispatch();
-  //const progress = useSelector(selectProgress);
+  const progress = useSelector(selectProgress);
   const pp = useSelector(selectPlayPause);
+  const tracks = useSelector(selectTracks);
 
   const track = props.track;
 
   // Refs
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(29);
   const [audio, setAudio] = useState(null);
   const [displayDescription, setDisplayDuration] = useState(`none`);
   const [displayWidth, setDisplayWidth] = useState(`0%`);
   const [displayOpacity, setDisplayOpacity] = useState(`0`);
 
   const currentPercentage = duration
-    ? `${ (props.trackProgress / duration) * 100 }%`
+    ? `${(progress.visual / duration) * 100}%`
     : "0%";
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
 `;
 
+  const intervalRef = useRef();
+
+  const startTimer = () => {
+    // Clear any timers already running
+    clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      if (audio.ended) {
+        dispatch(playPause(false));
+      } else {
+        dispatch(updateVisualProgress(audio.currentTime));
+      }
+    }, [500]);
+  };
+
   const handleDown = (event) => {
-    dispatch(updateValue(event.target.value));
-    props.onMouseDown();
+    dispatch(updateVisualProgress(event.target.value));
+    dispatch(playPause(false));
   };
 
   const handleChange = (event) => {
-    dispatch(updateValue(event.target.value));
-    props.onChange(event);
+    dispatch(updateVisualProgress(event.target.value));
   };
 
-  const handleDelete = (id) => {
+  const handleUp = (event) => {
+    dispatch(updateVisualProgress(event.target.value));
+    dispatch(updateAudioProgress(event.target.value));
+  };
+
+  const handleDelete = () => {
     audio.src = null;
     dispatch(removeTrack(track));
-    //props.onDelete(id);
   };
 
   useEffect(() => {
     setAudio(new Audio(track.preview));
   }, []);
-
-  useEffect(() => {
-    if (audio) {
-      audio.onloadedmetadata = () => {
-        setDuration(30);
-      };
-    }
-  }, [audio]);
 
   useEffect(() => {
     setDisplayDuration(duration ? `inline-block` : `none`);
@@ -64,24 +82,33 @@ export default function Track(props) {
   }, [duration]);
 
   useEffect(() => {
-    console.log("in track : ", pp.value)
     if (audio) {
       pp.value ? audio.play() : audio.pause();
+
+      if (track === tracks[0]) {
+        pp.value ? startTimer() : clearInterval(intervalRef.current);
+      }
     }
   }, [pp]);
+
+  useEffect(() => {
+    if (audio) {
+      audio.currentTime = progress.visual;
+    }
+  }, [progress.audio]);
 
   return (
     <div className='input-container' style={{ opacity: displayOpacity }}>
       <input
         type='range'
-        value={props.trackProgress}
+        value={progress.visual}
         step='1'
         min='0'
-        max={duration ? duration : `${ duration }`}
+        max={duration ? duration : `${duration}`}
         className='input-progress'
         onChange={handleChange}
         onMouseDown={handleDown}
-        onMouseUp={handleChange}
+        onMouseUp={handleUp}
         style={{
           background: trackStyling,
           display: displayDescription,

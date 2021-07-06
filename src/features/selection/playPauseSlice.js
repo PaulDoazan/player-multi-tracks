@@ -5,7 +5,7 @@ export const playPauseSlice = createSlice({
   initialState: { value: false },
   reducers: {
     playPause: (state, action) => {
-      state.value = !state.value;
+      state.value = action.payload;
     }
   }
 });

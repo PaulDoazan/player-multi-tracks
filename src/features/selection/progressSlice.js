@@ -2,15 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const progressSlice = createSlice({
   name: "progress",
-  initialState: { value: 0 },
+  initialState: { visual: 0, audio: 0 },
   reducers: {
-    updateValue: (state, action) => {
-      state.value = action.payload;
+    updateVisualProgress: (state, action) => {
+      state.visual = action.payload;
+    },
+    updateAudioProgress: (state, action) => {
+      state.audio = action.payload;
     }
   }
 });
 
-export const { updateValue } = progressSlice.actions;
+export const { updateVisualProgress, updateAudioProgress } =
+  progressSlice.actions;
 export const selectProgress = (state) => state.progress;
 
 export default progressSlice.reducer;
