@@ -18,6 +18,12 @@ export default function Track_level_control(props) {
     }
   }, [volume]);
 
+  useEffect(() => {
+    if (audio) {
+      audio.volume = volume / 100;
+    }
+  }, [audio]);
+
   return (
     <div className='control-box'>
       <div className='volume-control'>

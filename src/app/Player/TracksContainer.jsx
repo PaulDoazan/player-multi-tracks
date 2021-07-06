@@ -13,7 +13,6 @@ let trackId = 0;
 
 export default function TracksContainer(props) {
   const tracks = useSelector(selectTracks);
-
   const [tracksArray, setTracksArray] = useState([]);
 
   const handleChange = (event) => {

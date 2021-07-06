@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Track_level_control from "./Track_level_control";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { removeTrack } from "../../features/selection/selectionSlice";
+import {
+  updateValue,
+  selectProgress
+} from "../../features/selection/progressSlice";
 
 export default function Track(props) {
   const dispatch = useDispatch();
+  //const progress = useSelector(selectProgress);
 
   const track = props.track;
 
@@ -16,25 +21,27 @@ export default function Track(props) {
   const [displayOpacity, setDisplayOpacity] = useState(`0`);
 
   const currentPercentage = duration
-    ? `${ (props.trackProgress / duration) * 100 }%`
+    ? `${(props.trackProgress / duration) * 100}%`
     : "0%";
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
 `;
 
-  const handleDown = () => {
+  const handleDown = (event) => {
+    dispatch(updateValue(event.target.value));
     props.onMouseDown();
   };
 
   const handleChange = (event) => {
+    dispatch(updateValue(event.target.value));
     props.onChange(event);
   };
 
   const handleDelete = (id) => {
-    props.onDelete(id);
+    audio.src = null;
+    dispatch(removeTrack(track));
+    //props.onDelete(id);
   };
-
-
 
   useEffect(() => {
     setAudio(new Audio(track.preview));
@@ -62,7 +69,7 @@ export default function Track(props) {
         value={props.trackProgress}
         step='1'
         min='0'
-        max={duration ? duration : `${ duration }`}
+        max={duration ? duration : `${duration}`}
         className='input-progress'
         onChange={handleChange}
         onMouseDown={handleDown}
@@ -77,8 +84,7 @@ export default function Track(props) {
       <div
         className='trash'
         onClick={() => {
-          audio.pause();
-          dispatch(removeTrack(track));
+          handleDelete();
         }}>
         <i className='fas fa-minus-circle fa-lg'></i>
       </div>
