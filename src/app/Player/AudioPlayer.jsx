@@ -92,7 +92,7 @@ const AudioPlayer = ({ tracks }) => {
         <img
           className='artwork'
           src={track0.image}
-          alt={`track artwork for ${track0.title} by ${track0.artist}`}
+          alt={`track artwork for ${ track0.title } by ${ track0.artist }`}
         />
         <h2 className='title'>{track0.title}</h2>
         <h3 className='artist'>{track0.artist}</h3>

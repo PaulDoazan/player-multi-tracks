@@ -1,14 +1,19 @@
 import React from "react";
 import { ReactComponent as Play } from "../assets/play.svg";
 import { ReactComponent as Pause } from "../assets/pause.svg";
+import { useSelector, useDispatch } from "react-redux";
+import { playPause, selectPlayPause } from "../../features/selection/playPauseSlice";
 
-const AudioControls = ({ isPlaying, onPlayPauseClick }) => (
-  <div className='audio-controls'>
-    {isPlaying ? (
+const AudioControls = () => {
+  const pp = useSelector(selectPlayPause);
+  const dispatch = useDispatch();
+
+  return (<div className='audio-controls'>
+    {pp.value ? (
       <button
         type='button'
         className='pause'
-        onClick={() => onPlayPauseClick(false)}
+        onClick={() => dispatch(playPause(false))}
         aria-label='Pause'>
         <Pause />
       </button>
@@ -16,12 +21,12 @@ const AudioControls = ({ isPlaying, onPlayPauseClick }) => (
       <button
         type='button'
         className='play'
-        onClick={() => onPlayPauseClick(true)}
+        onClick={() => dispatch(playPause(true))}
         aria-label='Play'>
         <Play />
       </button>
     )}
-  </div>
-);
+  </div>)
+};
 
 export default AudioControls;

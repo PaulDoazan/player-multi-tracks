@@ -5,7 +5,6 @@ export const progressSlice = createSlice({
   initialState: { value: 0 },
   reducers: {
     updateValue: (state, action) => {
-      console.log(action.payload);
       state.value = action.payload;
     }
   }

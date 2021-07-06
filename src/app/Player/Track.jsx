@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Track_level_control from "./Track_level_control";
 import { useSelector, useDispatch } from "react-redux";
 import { removeTrack } from "../../features/selection/selectionSlice";
+import { playPause, selectPlayPause } from "../../features/selection/playPauseSlice";
 import {
   updateValue,
   selectProgress
@@ -10,6 +11,7 @@ import {
 export default function Track(props) {
   const dispatch = useDispatch();
   //const progress = useSelector(selectProgress);
+  const pp = useSelector(selectPlayPause);
 
   const track = props.track;
 
@@ -21,10 +23,10 @@ export default function Track(props) {
   const [displayOpacity, setDisplayOpacity] = useState(`0`);
 
   const currentPercentage = duration
-    ? `${(props.trackProgress / duration) * 100}%`
+    ? `${ (props.trackProgress / duration) * 100 }%`
     : "0%";
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
 `;
 
   const handleDown = (event) => {
@@ -52,7 +54,6 @@ export default function Track(props) {
       audio.onloadedmetadata = () => {
         setDuration(30);
       };
-      audio.play();
     }
   }, [audio]);
 
@@ -62,6 +63,13 @@ export default function Track(props) {
     setDisplayWidth("95%");
   }, [duration]);
 
+  useEffect(() => {
+    console.log("in track : ", pp.value)
+    if (audio) {
+      pp.value ? audio.play() : audio.pause();
+    }
+  }, [pp]);
+
   return (
     <div className='input-container' style={{ opacity: displayOpacity }}>
       <input
@@ -69,7 +77,7 @@ export default function Track(props) {
         value={props.trackProgress}
         step='1'
         min='0'
-        max={duration ? duration : `${duration}`}
+        max={duration ? duration : `${ duration }`}
         className='input-progress'
         onChange={handleChange}
         onMouseDown={handleDown}
