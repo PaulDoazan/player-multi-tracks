@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTrack } from "../../features/selection/selectionSlice";
 
-export default function FetchButton() {
+export default function SearchTracks() {
   const dispatch = useDispatch();
 
   const [datas, setDatas] = useState([]);
@@ -11,7 +11,6 @@ export default function FetchButton() {
 
     let DZ = window.dzAsyncInit();
     DZ.api("/search?q=" + e.target.value, function (response) {
-      //console.log("search", response);
       setDatas(response.data);
     });
   };

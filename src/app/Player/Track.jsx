@@ -19,7 +19,7 @@ export default function Track(props) {
   const dispatch = useDispatch();
   const progress = useSelector(selectProgress);
   const pp = useSelector(selectPlayPause);
-  const tracks = useSelector(selectTracks);
+  const selection = useSelector(selectTracks);
 
   const track = props.track;
 
@@ -85,7 +85,7 @@ export default function Track(props) {
     if (audio) {
       pp.value ? audio.play() : audio.pause();
 
-      if (track === tracks[0]) {
+      if (track === selection.tracks[0]) {
         pp.value ? startTimer() : clearInterval(intervalRef.current);
       }
     }

@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import { selectTracks } from "../../features/selection/selectionSlice";
 
 export default function TracksContainer() {
-  const tracks = useSelector(selectTracks);
+  const selection = useSelector(selectTracks);
 
   return (
     <div>
       <ul>
-        {tracks
-          ? tracks.map((item) => {
+        {selection.tracks
+          ? selection.tracks.map((item) => {
               return (
                 <li key={item.id}>
                   <Track track={item}></Track>
