@@ -1,4 +1,4 @@
-import imgSrc from "./app/assets/artwork.jpg";
+import imgSrc from "./app/assets/cacophony.jpg";
 import imgSrc2 from "./app/assets/artwork2.jpg";
 import cali from "./app/assets/cali.mp3";
 import epic from "./app/assets/epic.mp3";

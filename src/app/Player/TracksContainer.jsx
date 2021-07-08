@@ -19,12 +19,11 @@ export default function TracksContainer() {
             })
           : null}
       </ul>
-
-      <div className='btn-container'>
+      {/* <div className='btn-container'>
         <button className='btn-add-track'>
           <i className='fas fa-plus-circle fa-2x'></i>
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
