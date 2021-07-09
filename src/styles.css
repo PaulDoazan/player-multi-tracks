@@ -1,6 +1,14 @@
+/*
+
+*/
+
 :root {
   --white: #fff;
-  --active-color: #8aba9f;
+  --soft-green: #8aba9f;
+  --red: #e2804a;
+  --green: #6ea875;
+  --blue:#5fa7d0;
+  --yellow: #e7d14f; 
 }
 
 * {
@@ -11,7 +19,7 @@
 html {
   font-family: Arial, Helvetica, sans-serif;
   height: 100%;
-  background: #8aba9f;
+  background:  var(--green);
   transition: background 0.4s ease;
 }
 
@@ -45,11 +53,21 @@ input:focus {
   margin-top: 13px;
   border-radius: 8px;
   /*background: #3b7677;*/
-  background: #8aba9f;
+  background: var(--green);
   transition: background 0.2s ease;
   cursor: pointer;
   grid-column-start: 1;
   grid-column-end: 7;
+}
+
+.input-progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--red);
+  cursor: pointer;
 }
 
 .control-box {
@@ -200,7 +218,7 @@ ul {
 }
 
 .color-backdrop {
-  background: linear-gradient(45deg, #8aba9f 20%, transparent 100%) no-repeat;
+  background: linear-gradient(45deg, var(--soft-green) 20%, transparent 100%) no-repeat;
   position: fixed;
   top: 0;
   left: 0;
