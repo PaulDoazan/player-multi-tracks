@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTrack } from "../../features/selection/selectionSlice";
+import TrackBlock from "./TrackBlock";
 
 export default function SearchTracks() {
   const dispatch = useDispatch();
@@ -17,27 +17,23 @@ export default function SearchTracks() {
 
   return (
     <div style={{ position: "absolute" }}>
-      <input
-        type='text'
-        id='name'
-        name='name'
-        style={{ color: "#000" }}
-        onChange={(e) => {
-          fetchData(e);
-        }}
-      />
+      <div className='searchbar'>
+        <input
+          type='text'
+          id='name'
+          name='name'
+          style={{ color: "#000" }}
+          onChange={(e) => {
+            fetchData(e);
+          }}
+        />
+      </div>
+
       {datas ? (
         <ul>
           {datas.map((data) => (
             <li key={data.id}>
-              {data.title}
-              <span
-                className='trash'
-                onClick={() => {
-                  dispatch(addTrack(data));
-                }}>
-                <i className='fas fa-plus-circle fa-lg'></i>
-              </span>
+              <TrackBlock data={data} />
             </li>
           ))}
         </ul>

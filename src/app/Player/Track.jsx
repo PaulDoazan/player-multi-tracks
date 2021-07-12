@@ -24,7 +24,7 @@ export default function Track(props) {
   const track = props.track;
 
   // Refs
-  const [duration, setDuration] = useState(29);
+  const [duration, setDuration] = useState(31);
   const [audio, setAudio] = useState(null);
   const [displayDescription, setDisplayDuration] = useState(`none`);
   const [displayWidth, setDisplayWidth] = useState(`0%`);
@@ -46,10 +46,9 @@ export default function Track(props) {
     intervalRef.current = setInterval(() => {
       if (audio.ended) {
         dispatch(playPause(false));
-      } else {
-        dispatch(updateVisualProgress(audio.currentTime));
       }
-    }, [500]);
+      dispatch(updateVisualProgress(audio.currentTime));
+    }, [1000]);
   };
 
   const handleDown = (event) => {

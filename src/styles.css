@@ -7,19 +7,19 @@
   --soft-green: #8aba9f;
   --red: #e2804a;
   --green: #6ea875;
-  --blue:#5fa7d0;
-  --yellow: #e7d14f; 
+  --blue: #5fa7d0;
+  --yellow: #e7d14f;
 }
 
 * {
   box-sizing: border-box;
-  caret-color: rgba(0, 0, 0, 0);
+  /* caret-color: rgba(0, 0, 0, 0); */
 }
 
 html {
   font-family: Arial, Helvetica, sans-serif;
   height: 100%;
-  background:  var(--green);
+  background: var(--green);
   transition: background 0.4s ease;
 }
 
@@ -31,7 +31,7 @@ button {
 }
 
 input {
-  caret-color: rgba(0, 0, 0, 0);
+  /* caret-color: rgba(0, 0, 0, 0); */
 }
 
 input:focus {
@@ -66,7 +66,7 @@ input:focus {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--red);
+  background: var(--yellow);
   cursor: pointer;
 }
 
@@ -147,9 +147,18 @@ ul {
   max-width: 420px;
   padding: 24px;
   border-radius: 20px;
-  box-shadow: 0 28px 28px rgba(0, 0, 0, 0.2);
   margin: auto;
   color: var(--white);
+}
+
+@media (min-width: 420px) {
+  .audio-player {
+    box-shadow: 0 28px 28px rgba(0, 0, 0, 0.2);
+  }
+
+  .trackBlock {
+    max-width: 33vw;
+  }
 }
 
 .artwork {
@@ -218,7 +227,8 @@ ul {
 }
 
 .color-backdrop {
-  background: linear-gradient(45deg, var(--soft-green) 20%, transparent 100%) no-repeat;
+  background: linear-gradient(45deg, var(--soft-green) 20%, transparent 100%)
+    no-repeat;
   position: fixed;
   top: 0;
   left: 0;
@@ -238,4 +248,44 @@ ul {
   to {
     filter: hue-rotate(360deg);
   }
+}
+
+/* MENU SEARCH TRACKS */
+
+.searchbar {
+  margin: 1em 0 3em 1em;
+}
+
+.searchbar input {
+  border-radius: 15px;
+}
+
+.trackBlock {
+  margin: 1em;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.trackBlock .infos {
+  display: flex;
+  align-items: center;
+}
+
+.trackBlock .infos .infos-text {
+  margin-left: 1em;
+}
+
+.trackBlock .infos .infos-text .info-title {
+  color: #fff;
+  font-size: 1.05em;
+}
+
+.trackBlock .infos .infos-text .info-artist-name {
+  color: #e5e5e5;
+}
+
+.trackBlock .trackBlock-buttons {
+  display: flex;
+  align-items: center;
 }
