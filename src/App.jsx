@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 
 export default function App() {
   return (
-    <div>
+    <div className='app-container'>
       <Provider store={store}>
         <SearchTracks />
         <AudioPlayer tracks={tracks} />

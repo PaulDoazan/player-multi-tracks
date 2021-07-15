@@ -16,12 +16,14 @@ export default function SearchTracks() {
   };
 
   return (
-    <div style={{ position: "absolute" }}>
+    <div className='menu-container'>
       <div className='searchbar'>
         <input
-          type='text'
+          className='search-input'
+          type='search'
           id='name'
           name='name'
+          placeholder='search...'
           style={{ color: "#000" }}
           onChange={(e) => {
             fetchData(e);
@@ -37,9 +39,7 @@ export default function SearchTracks() {
             </li>
           ))}
         </ul>
-      ) : (
-        <div>No Data</div>
-      )}
+      ) : null}
     </div>
   );
 }
