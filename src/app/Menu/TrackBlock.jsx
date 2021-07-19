@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addTrack } from "../../features/selection/selectionSlice";
+import { playPause } from "../../features/selection/playPauseSlice";
 
 export default function TrackBlock(props) {
-  console.log(props.data);
   const dispatch = useDispatch();
   return (
     <div className='trackBlock'>
@@ -19,6 +19,7 @@ export default function TrackBlock(props) {
           className='trash'
           onClick={() => {
             dispatch(addTrack(props.data));
+            dispatch(playPause(false));
           }}>
           <i className='fas fa-plus-circle fa-lg'></i>
         </div>
