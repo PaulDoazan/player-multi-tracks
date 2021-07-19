@@ -8,23 +8,6 @@
       name="description"
       content="Web site created by Paul Doazan"
     />
-    <script src="https://kit.fontawesome.com/1f65996de1.js" crossorigin="anonymous"></script>
-    <div id="dz-root"></div>
-    <script>
-      window.dzAsyncInit = function() {
-        DZ.init({
-        appId  : '490022',
-        channelUrl : ' http://localhost:3000/'
-      });
-      return DZ;
-    };
-    (function() {
-        var e = document.createElement('script');
-        e.src = 'https://e-cdns-files.dzcdn.net/js/min/dz.js';
-        e.async = true;
-        document.getElementById('dz-root').appendChild(e);
-    }());
-    </script>
     
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -51,4 +34,22 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script src="https://kit.fontawesome.com/1f65996de1.js" crossorigin="anonymous"></script>
+    <div id="dz-root"></div>
+    <script>
+      window.dzAsyncInit = function() {
+        DZ.init({
+        appId  : '',
+        channelUrl : ''
+      });
+      return DZ;
+      /*492962,  http://localhost:5000 */
+    };
+    (function() {
+        var e = document.createElement('script');
+        e.src = 'https://e-cdns-files.dzcdn.net/js/min/dz.js';
+        e.async = true;
+        document.getElementById('dz-root').appendChild(e);
+    }());
+    </script>
 </html>
