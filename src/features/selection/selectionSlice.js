@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const selectionSlice = createSlice({
   name: "selection",
-  initialState: { tracks: [] },
+  initialState: { tracks: [], tracksDescriptionVisible: false },
   reducers: {
     addTrack: (state, action) => {
       const idAlreadyExists =
@@ -19,11 +19,14 @@ export const selectionSlice = createSlice({
       if (index > -1) {
         state.tracks.splice(index, 1);
       }
+    },
+    showTrackDescription: (state, action) => {
+      state.tracksDescriptionVisible = action.payload;
     }
   }
 });
 
-export const { addTrack, removeTrack } = selectionSlice.actions;
+export const { addTrack, removeTrack, showTrackDescription } = selectionSlice.actions;
 export const selectTracks = (state) => state.selection;
 
 export default selectionSlice.reducer;

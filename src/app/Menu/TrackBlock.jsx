@@ -10,7 +10,7 @@ export default function TrackBlock(props) {
       <div className='infos'>
         <img src={props.data.album.cover_small} alt='' />
         <div className='infos-text'>
-          <div className='info-title'>{props.data.title}</div>
+          <div className='info-title'>{props.data.title_short}</div>
           <div className='info-artist-name'>{props.data.artist.name}</div>
         </div>
       </div>

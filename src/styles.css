@@ -58,6 +58,18 @@ input:focus {
   margin-bottom: 15px;
 }
 
+.track-description {
+  margin-top: 5px;
+  text-align: left;
+  font-size: 0.9em;
+  grid-column-start: 1;
+  grid-column-end: 7;
+}
+
+.track-description .artist-name{
+  color: grey;
+}
+
 .input-progress {
   height: 5px;
   width: 95%;
@@ -210,6 +222,13 @@ ul {
   margin: 8px;
 }
 
+.eye-container {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
 .btn-container {
   display: flex;
   justify-content: flex-end;
@@ -245,6 +264,7 @@ ul {
   width: 40px;
   margin: 10px;
 }
+
 
 .audio-controls path {
   fill: var(--white);
@@ -417,12 +437,16 @@ ul {
   margin-left: 1em;
 }
 
-.trackBlock .infos .infos-text .info-title {
+.info-title {
   color: #fff;
   font-size: 1.05em;
 }
 
-.trackBlock .infos .infos-text .info-artist-name {
+.info-artist-name {
+  color: #b7b7b7;
+}
+
+.description-artist-name {
   color: #e5e5e5;
 }
 

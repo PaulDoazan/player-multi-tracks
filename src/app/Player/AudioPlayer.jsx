@@ -21,9 +21,8 @@ const AudioPlayer = ({ tracks }) => {
         <img
           className='artwork'
           src={track0.image}
-          alt={`track artwork for ${track0.title} by ${track0.artist}`}
+          alt={`track artwork for ${ track0.title } by ${ track0.artist }`}
         />
-        {/* <i className='artwork far fa-eye fa-7x'></i> */}
         <h2 className='title'>Songs</h2>
         <h3 className='artist'>Artists</h3>
         <AudioControls />

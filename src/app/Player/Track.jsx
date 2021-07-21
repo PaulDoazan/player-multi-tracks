@@ -31,10 +31,10 @@ export default function Track(props) {
   const [displayOpacity, setDisplayOpacity] = useState(`0`);
 
   const currentPercentage = duration
-    ? `${(progress.visual / duration) * 100}%`
+    ? `${ (progress.visual / duration) * 100 }%`
     : "0%";
   const trackStyling = `
-  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
+  -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
 `;
 
   const intervalRef = useRef();
@@ -101,12 +101,19 @@ export default function Track(props) {
 
   return (
     <div className='input-container' style={{ opacity: displayOpacity }}>
+      {selection.tracksDescriptionVisible ?
+        <div className="track-description">
+          <span><strong>{track.title_short}</strong> / </span>
+          <span className="description-artist-name">{track.artist.name}</span>
+        </div>
+        : null}
+
       <input
         type='range'
         value={progress.visual}
         step='1'
         min='0'
-        max={duration ? duration : `${duration}`}
+        max={duration ? duration : `${ duration }`}
         className='input-progress'
         onChange={handleChange}
         onMouseDown={handleDown}
