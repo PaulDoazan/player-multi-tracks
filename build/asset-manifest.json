@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/PaulDoazan/player-multi-tracks/static/css/main.2980908e.chunk.css",
+    "main.js": "/PaulDoazan/player-multi-tracks/static/js/main.248d24f8.chunk.js",
+    "main.js.map": "/PaulDoazan/player-multi-tracks/static/js/main.248d24f8.chunk.js.map",
+    "runtime-main.js": "/PaulDoazan/player-multi-tracks/static/js/runtime-main.76376110.js",
+    "runtime-main.js.map": "/PaulDoazan/player-multi-tracks/static/js/runtime-main.76376110.js.map",
+    "static/js/2.30d1c71d.chunk.js": "/PaulDoazan/player-multi-tracks/static/js/2.30d1c71d.chunk.js",
+    "static/js/2.30d1c71d.chunk.js.map": "/PaulDoazan/player-multi-tracks/static/js/2.30d1c71d.chunk.js.map",
+    "index.html": "/PaulDoazan/player-multi-tracks/index.html",
+    "static/css/main.2980908e.chunk.css.map": "/PaulDoazan/player-multi-tracks/static/css/main.2980908e.chunk.css.map",
+    "static/js/2.30d1c71d.chunk.js.LICENSE.txt": "/PaulDoazan/player-multi-tracks/static/js/2.30d1c71d.chunk.js.LICENSE.txt",
+    "static/media/cacophony.35a2a286.jpg": "/PaulDoazan/player-multi-tracks/static/media/cacophony.35a2a286.jpg",
+    "static/media/cali.a379b9b0.mp3": "/PaulDoazan/player-multi-tracks/static/media/cali.a379b9b0.mp3",
+    "static/media/epic.4689dbd4.mp3": "/PaulDoazan/player-multi-tracks/static/media/epic.4689dbd4.mp3",
+    "static/media/pause.a9eee333.svg": "/PaulDoazan/player-multi-tracks/static/media/pause.a9eee333.svg",
+    "static/media/play.cd4241d2.svg": "/PaulDoazan/player-multi-tracks/static/media/play.cd4241d2.svg",
+    "static/media/styles.css": "/PaulDoazan/player-multi-tracks/static/media/search.f8c022bb.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.76376110.js",
+    "static/js/2.30d1c71d.chunk.js",
+    "static/css/main.2980908e.chunk.css",
+    "static/js/main.248d24f8.chunk.js"
+  ]
+}
