@@ -1,6 +1,5 @@
 {
   "name": "player-multi-tracks",
-  "homepage": "https://github.com/PaulDoazan/player-multi-tracks",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
